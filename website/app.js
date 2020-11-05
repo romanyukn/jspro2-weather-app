@@ -11,4 +11,7 @@ function getData() {
     .then((response) => response.json())
     .then((data) => console.log(data));
 }
-getData();
+
+document.getElementById("generate").addEventListener("click", () => {
+  getData();
+});
