@@ -22,11 +22,11 @@ app.use(express.static("website"));
 // Setup Server
 app.listen(3000, () => console.log("Listening on port 3000..."));
 
-app.get("/api/data", (req, res) => {
+app.get("/data-object", (req, res) => {
   res.send(projectData);
 });
 
-app.post("/api/data", (req, res) => {
+app.post("/data-object", (req, res) => {
   projectData.temperature = req.body.temperature;
   projectData.date = req.body.date;
   projectData.userResponse = req.body.userResponse;
