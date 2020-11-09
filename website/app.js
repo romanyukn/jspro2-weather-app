@@ -12,13 +12,6 @@ const getTodaysDataAsString = () => {
   return now.getMonth() + "." + now.getDate() + "." + now.getFullYear();
 }
 
-document.getElementById("generate").addEventListener("click", async () => {
-  const zipValue = document.getElementById("zip").value;
-  const feelings = document.getElementById("feelings").value;
-  await getData(zipValue, country, feelings);
-  showData();
-});
-
 async function getData(zip, country, feellings) {
   const { data } = await axios.get(
     `http://${apiEndPoint}/data/2.5/weather?zip=${zip},${country}&appid=${apiKey}`
@@ -40,3 +33,33 @@ async function showData() {
   document.getElementById("temp").innerHTML = data.temperature;
   document.getElementById("content").innerHTML = data.userResponse;
 }
+
+/**
+ * Adds all evebt listeners for this app
+ */
+const addEventListeners = () => {
+  onGenerateEvent();
+}
+
+/**
+ * Adds an event listener for the form click event.
+ */
+const onGenerateEvent = () => {
+  document.getElementById("generate").addEventListener("click", async () => {
+    const zipValue = document.getElementById("zip").value;
+    const feelings = document.getElementById("feelings").value;
+    await getData(zipValue, country, feelings);
+    await showData();
+  });  
+}
+
+/**
+ * Initializes the app
+ */
+const init = () => {
+
+  addEventListeners();
+
+}
+
+init()
