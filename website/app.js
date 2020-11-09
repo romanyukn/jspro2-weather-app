@@ -3,9 +3,14 @@ const apiEndPoint = "api.openweathermap.org";
 const apiKey = "081a059f88749d9d3c5a61e73985ef20";
 const country = "us";
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+/**
+ * Gets today's date and parses it as US String: MM/DD/YYYY
+ * @return {string} - The date to be showned.
+ */
+const getTodaysDataAsString = () => {
+  const now = new Date();
+  return now.getMonth() + "." + now.getDate() + "." + now.getFullYear();
+}
 
 document.getElementById("generate").addEventListener("click", async () => {
   const zipValue = document.getElementById("zip").value;
@@ -20,7 +25,7 @@ async function getData(zip, country, feellings) {
   );
   postToServer({
     temperature: data.main.temp,
-    date: newDate,
+    date: getTodaysDataAsString(),
     userResponse: feellings,
   });
 }
