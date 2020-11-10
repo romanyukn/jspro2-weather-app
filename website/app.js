@@ -16,7 +16,7 @@ async function getData(zip, country, feellings) {
   const { data } = await axios.get(
     `http://${apiEndPoint}/data/2.5/weather?zip=${zip},${country}&appid=${apiKey}`
   );
-  postToServer({
+  await postToServer({
     temperature: data.main.temp,
     date: getTodaysDataAsString(),
     userResponse: feellings,
@@ -24,10 +24,12 @@ async function getData(zip, country, feellings) {
 }
 
 async function postToServer(data) {
-  await axios.post("/data-object", data);
+  // TODO: manage server errors ?
+  return await axios.post("/data-object", data);
 }
 
 async function showData() {
+  // TODO: manage server errors ?
   const { data } = await axios.get("/data-object");
   document.getElementById("date").innerHTML = data.date;
   document.getElementById("temp").innerHTML = data.temperature;
