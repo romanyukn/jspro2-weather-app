@@ -8,6 +8,7 @@ function getTodaysDateString() {
   const todaysDate = new Date();
   const todaysDateAsStr =
     todaysDate.getMonth() +
+    1 +
     "." +
     todaysDate.getDate() +
     "." +
@@ -43,11 +44,12 @@ async function postToServer(data) {
 
 async function showData() {
   try {
-    const { data } = await axios.get("/weather-object");
-    document.getElementById("date").innerHTML = data.date;
-    document.getElementById("temp").innerHTML = data.temperature;
-    document.getElementById("content").innerHTML = data.userResponse;
+    const response = await axios.get("/weather-object");
+    if (response.error) alert(response.error);
+    document.getElementById("date").innerHTML = response.data.date;
+    document.getElementById("temp").innerHTML = response.data.temperature;
+    document.getElementById("content").innerHTML = response.data.userResponse;
   } catch (ex) {
-    console.log(ex.message);
+    alert(ex.message);
   }
 }

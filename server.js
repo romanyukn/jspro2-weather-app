@@ -23,6 +23,8 @@ app.use(express.static("website"));
 app.listen(3000, () => console.log("Listening on port 3000..."));
 
 app.get("/weather-object", (req, res) => {
+  if (!projectData.temperature && !projectData.userResponse)
+    res.status(400).send({ status: 400, error: "Fill in all the fields" });
   res.send(projectData);
 });
 
