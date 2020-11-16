@@ -29,8 +29,19 @@ app.get("/weather-object", (req, res) => {
 });
 
 app.post("/weather-object", (req, res) => {
-  projectData.temperature = req.body.temperature;
-  projectData.date = req.body.date;
-  projectData.userResponse = req.body.userResponse;
-  res.send(projectData);
+  try {
+    
+    const {temperature, date, userResponse} = req.body;
+    if (!temperature || !date || !userResponse) {
+      return res.status(400).send({ status: 400, message: "temperature, date & userResponse are required!" });
+    }
+    projectData = {
+      temperature,
+      date,
+      userResponse
+    }
+    return res.send(projectData);
+  } catch (error) {
+    res.status(400).send({ status: 400, message: error.message });
+  }
 });
